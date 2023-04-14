@@ -29,9 +29,15 @@ packer build -var-file="variables.pkrvars.hcl" templates/latex.pkr.hcl
 export $(cat .env | xargs) && tart push ventura-xcode-14.3-latex:latest ghcr.io/onevcat/ventura-xcode-14.3-latex:latest
 ```
 
-### Clone and Start VM
+### Clone and Use VM
 
 ```bash
-tart clone ventura-xcode-14.3-latex:latest my_vm
-tart run my_vm
+tart clone ghcr.io/onevcat/ventura-xcode-14.3-latex:latest my_vm
+tart run --dir=src:~/Documents/somefolder my_vm
+
+# Headless mode
+# tart run --no-graphics --dir=src:~/Documents/somefolder my_vm
+
+# Connect with SSH
+ssh admin@$(tart ip my_vm)
 ```
